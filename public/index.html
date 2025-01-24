@@ -1,0 +1,196 @@
+<html>
+<head>
+    <title>Vulpin3 | Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background: #FFFFFF;
+            color: #000000;
+        }
+        .terminal-bg {
+            background: #FFFFFF;
+        }
+        .terminal-input {
+            background: #FFFFFF;
+            border: 1px solid #000000;
+            color: #000000;
+            outline: none;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        .terminal-button {
+            background: #FFFFFF;
+            border: 1px solid #000000;
+            color: #000000;
+            cursor: pointer;
+            border-radius: 8px;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        .terminal-button:hover {
+            background: #000000;
+            color: #FFFFFF;
+        }
+        .terminal-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="terminal-bg min-h-screen flex items-center justify-center relative">
+    <div class="absolute inset-0 z-0" id="particles-js"></div>
+    <nav class="absolute top-0 left-0 right-0 flex justify-between items-center p-4 bg-white bg-opacity-90 shadow-md">
+        <div class="flex items-center">
+            <img alt="Website logo, a stylized fox head" class="h-10 w-10" height="100" src="assets/Logo-black.png" width="100"/>
+            <span class="ml-2 text-xl font-bold text-black">
+                Vulpin3
+            </span>
+        </div>
+    </nav>
+    <div class="relative z-10 w-full max-w-md p-8 terminal-container mt-16">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-black">
+                Welcome
+            </h1>
+            <p class="text-black">
+                Sign up or log in to continue
+            </p>
+        </div>
+        <div class="flex justify-center mb-6">
+            <button class="px-4 py-2 mx-2 terminal-button" id="signupBtn">Sign Up</button>
+            <button class="px-4 py-2 mx-2 terminal-button" id="loginBtn">Log In</button>
+        </div>
+        <div class="hidden" id="signupForm">
+            <form>
+                <div class="mb-4">
+                    <label class="block text-black">Username</label>
+                    <input class="w-full px-4 py-2 mt-2 terminal-input focus:outline-none focus:ring-2 focus:ring-black" id="susername" type="text"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-black">Email</label>
+                    <input class="w-full px-4 py-2 mt-2 terminal-input focus:outline-none focus:ring-2 focus:ring-black" id="semail" type="email"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-black">Password</label>
+                    <input class="w-full px-4 py-2 mt-2 terminal-input focus:outline-none focus:ring-2 focus:ring-black" id="spassword" type="password"/>
+                </div>
+                <button class="w-full px-4 py-2 mt-4 terminal-button" type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div id="loginForm">
+            <form>
+                <div class="mb-4">
+                    <label class="block text-black">Email</label>
+                    <input class="w-full px-4 py-2 mt-2 terminal-input focus:outline-none focus:ring-2 focus:ring-black" id="lemail" type="email"/>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-black">Password</label>
+                    <input class="w-full px-4 py-2 mt-2 terminal-input focus:outline-none focus:ring-2 focus:ring-black" id="lpassword" type="password"/>
+                </div>
+                <button class="w-full px-4 py-2 mt-4 terminal-button" type="submit">Log In</button>
+                <div class="mt-4 text-center">
+                    <a class="text-black hover:underline" href="/forgotpassword" id="forgotPasswordLink">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('signupBtn').addEventListener('click', function() {
+            document.getElementById('signupForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            document.getElementById('signupForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+        });
+
+        document.getElementById('signupForm').querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent page reload on submit
+
+    const formData = new FormData();
+    formData.append('username', document.getElementById('susername').value);
+    formData.append('email', document.getElementById('semail').value);
+    formData.append('password', document.getElementById('spassword').value);
+    const profilePicture =  null;
+    if (profilePicture) {
+        formData.append('profile_picture', profilePicture);
+    }
+
+    fetch('/register', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+           // alert('Signup successful!');
+            window.location.href = '/login';
+        } else {
+            alert('Signup failed: ' + data.error);
+        }
+    })
+    .catch(error => {
+        alert('Error during signup: ' + error);
+    });
+});
+
+document.getElementById('loginForm').querySelector('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById('lemail').value;
+    const password = document.getElementById('lpassword').value;
+    console.log(email,password)
+
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', // Send JSON data
+        },
+        body: JSON.stringify({ email, password }) // Match keys with Flask server
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.redirect) {
+           
+            window.location.href = data.redirect;
+        } else {
+            alert('Login failed: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error during login:', error);
+        alert('An error occurred: ' + error.message);
+    });
+});
+
+
+
+
+particlesJS.load('particles-js', 'assets/particles.json', function() {
+            console.log('particles.js loaded - callback');
+        });
+
+        anime({
+            targets: 'h1',
+            translateY: [-50, 0],
+            opacity: [0, 1],
+            duration: 1000,
+            easing: 'easeOutExpo'
+        });
+    </script>
+</body>
+</html>

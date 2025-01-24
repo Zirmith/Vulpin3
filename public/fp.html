@@ -1,0 +1,119 @@
+<html>
+<head>
+    <title>Vulpin3 | Forgot Password</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js">
+    </script>
+    <style>
+     body {
+              font-family: 'Roboto Mono', monospace;
+              background: #ffffff;
+              color: #000000;
+          }
+          .terminal-bg {
+              background: #ffffff;
+          }
+          .terminal-input {
+              background: #ffffff;
+              border: 1px solid #000000;
+              color: #000000;
+              outline: none;
+              padding: 0.5rem;
+              border-radius: 0.25rem;
+          }
+          .terminal-button {
+              background: #ffffff;
+              border: 1px solid #000000;
+              color: #000000;
+              cursor: pointer;
+              padding: 0.5rem 1rem;
+              border-radius: 0.25rem;
+              transition: all 0.3s ease;
+          }
+          .terminal-button:hover {
+              background: #000000;
+              color: #ffffff;
+          }
+          .terminal-container {
+              background: rgba(255, 255, 255, 0.9);
+              backdrop-filter: blur(10px);
+              border-radius: 1rem;
+              box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          }
+          .navbar {
+              background: rgba(255, 255, 255, 0.9);
+              backdrop-filter: blur(10px);
+              border-bottom: 1px solid #000000;
+              padding: 1rem;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+          }
+    </style>
+   </head>
+   <body class="terminal-bg min-h-screen flex flex-col items-center justify-center relative">
+    <div class="absolute inset-0 z-0" id="particles-js">
+    </div>
+    <nav class="navbar w-full fixed top-0 z-20">
+     <div class="flex items-center">
+      <img alt="Website logo, a stylized fox head" class="h-10 w-10 mr-2" height="40" src="assets/Logo-black.png" width="40"/>
+      <span class="text-xl font-bold text-black">
+       Vulpin3
+      </span>
+     </div>
+     <div>
+      <span class="text-xl font-bold text-black">
+       
+      </span>
+     </div>
+    </nav>
+    <div class="relative z-10 w-full max-w-md p-8 terminal-container mt-20">
+     <div class="text-center mb-6">
+      <h1 class="text-3xl font-bold text-black">
+       Forgot Password
+      </h1>
+      <p class="text-black">
+       Enter your email to reset your password
+      </p>
+     </div>
+     <div id="forgotPasswordForm">
+      <form>
+       <div class="mb-4">
+        <label class="block text-black">
+         Email
+        </label>
+        <input class="w-full px-4 py-2 mt-2 terminal-input focus:outline-none focus:ring-2 focus:ring-black" type="email"/>
+       </div>
+       <button class="w-full px-4 py-2 mt-4 terminal-button" type="submit">
+        Reset Password
+       </button>
+       <div class="mt-4 text-center">
+        <a class="text-black hover:underline" href="/login">
+         Back to Login
+        </a>
+       </div>
+      </form>
+     </div>
+    </div>
+    <script>
+     
+particlesJS.load('particles-js', 'assets/particles.json', function() {
+            console.log('particles.js loaded - callback');
+        });
+
+          anime({
+              targets: 'h1',
+              translateY: [-50, 0],
+              opacity: [0, 1],
+              duration: 1000,
+              easing: 'easeOutExpo'
+          });
+    </script>
+   </body>
+  </html>

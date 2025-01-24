@@ -1,0 +1,387 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+        Vulpin3 | Edit Profile
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.js">
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .hover-effect:hover {
+            background-color: #f3f4f6;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 relative">
+    <div id="particles-js" class="absolute inset-0 z-0">
+    </div>
+    <div class="min-h-screen flex flex-col relative z-10">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <div class="flex-shrink-0 flex items-center">
+                            <img alt="Logo of the Vulpin3 Dashboard" class="h-8 w-8" height="32"
+                                src="assets/Logo-black.png" width="32" />
+                            <span class="ml-2 text-xl font-bold">
+                                Vulpin3
+                            </span>
+                        </div>
+                        <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                            <a class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                href="/dashboard">
+                                Dashboard
+                            </a>
+                            <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                href="/bots">
+                                Bots
+                            </a>
+                            <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                                href="/bot-settings">
+                                Settings
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                        <div class="relative">
+                            <button aria-expanded="false" aria-haspopup="true"
+                                class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                id="user-menu-button">
+                                <img alt="Profile picture of the currently logged in user" class="h-8 w-8 rounded-full"
+                                    height="32"
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjqh2qW9yiZ56kxvX64S3kiji0QwFMjXM_tg&s"
+                                                                        id="UserImage" width="32" />
+                            </button>
+                        </div>
+                        <div class="ml-3 relative">
+                            <div>
+                                <button aria-expanded="false" aria-haspopup="true"
+                                    class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    id="profile-menu-button">
+                                    <span class="sr-only">
+                                        Open user menu
+                                    </span>
+                                    <i class="ri-user-line text-xl">
+                                    </i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Content -->
+        <main class="flex-grow">
+            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                <div class="px-4 py-6 sm:px-0">
+                    <div class="bg-white shadow-md rounded-lg p-6 relative">
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                            <div class="relative">
+                                <img alt="Current profile picture of the user"
+                                    class="h-32 w-32 rounded-full border-4 border-white shadow-md" height="128"
+                                    id="profile-picture-preview"
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjqh2qW9yiZ56kxvX64S3kiji0QwFMjXM_tg&s"
+
+                                    width="128" />
+                                <input class="absolute inset-0 opacity-0 cursor-pointer" id="profile-picture"
+                                    name="profile-picture" type="file" />
+                            </div>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-4 mt-20 text-center">
+                            User Profile
+                        </h2>
+                        <form>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                                    Username
+                                </label>
+                                <input
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="username" name="username" type="text" value="current_username" />
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                                    Email
+                                </label>
+                                <input
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="email" name="email" type="email" value="user@example.com" />
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="bio">
+                                    Bio
+                                </label>
+                                <textarea
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="bio" name="bio" rows="4">
+current_bio
+</textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                                    Change Password
+                                </label>
+                                <input
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="password" name="password" type="password" placeholder="New Password" />
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm-password">
+                                    Confirm Password
+                                </label>
+                                <input
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    id="confirm-password" name="confirm-password" type="password"
+                                    placeholder="Confirm New Password" />
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    type="button">
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- Footer -->
+        <footer class="bg-white shadow-md">
+            <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center">
+                    <p class="text-sm text-gray-500">
+                        © 2025 Vulpin3. All rights reserved.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a class="text-gray-400 hover:text-gray-500" href="#">
+                            <i class="ri-facebook-circle-line text-xl">
+                            </i>
+                        </a>
+                        <a class="text-gray-400 hover:text-gray-500" href="#">
+                            <i class="ri-twitter-line text-xl">
+                            </i>
+                        </a>
+                        <a class="text-gray-400 hover:text-gray-500" href="#">
+                            <i class="ri-instagram-line text-xl">
+                            </i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <!-- Modal for cropping profile picture -->
+    <div aria-hidden="true" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 hidden"
+        id="cropper-modal">
+        <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div
+                        class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <i class="ri-image-edit-line text-blue-600 text-xl">
+                        </i>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Edit Profile Picture
+                        </h3>
+                        <div class="mt-2">
+                            <img alt="Profile picture to be cropped" class="w-full" id="cropper-image" src="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button
+                    class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    id="cropper-confirm">
+                    <i class="ri-check-line">
+                    </i>
+                    Confirm
+                </button>
+                <button
+                    class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                    id="cropper-cancel">
+                    <i class="ri-close-line">
+                    </i>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch the logged-in user data
+            fetch('/getuser')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.log('Error fetching user data:', data.error);
+                        return;
+                    }
+                    console.log(data)
+                    // Populate the form with the fetched user data
+                    document.getElementById('username').value = data.username || '';
+                    document.getElementById('email').value = data.email || '';
+                    document.getElementById('bio').value = data.bio || '';
+                    document.getElementById('password').value = data.password || '';
+                    const imgElement = document.getElementById('profile-picture-preview');
+                    const imgElement2 = document.getElementById('UserImage');
+                    // If you want to show the profile picture somewhere in the form, use this:
+                    const profilePicUrl = data.profile_picture;
+                    if (profilePicUrl) {
+                        // Add the header if it's missing (assuming it's a PNG image)
+                        const formattedProfilePicUrl = profilePicUrl.startsWith('data:image') ? profilePicUrl : `data:image/png;base64,${profilePicUrl}`;
+                        imgElement.src = formattedProfilePicUrl
+                        imgElement2.src = formattedProfilePicUrl
+                        imgElement.alt = "Profile Picture";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during user data fetch:', error);
+                });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            anime({
+                targets: 'h1',
+                translateY: [-50, 0],
+                opacity: [0, 1],
+                duration: 1000,
+                easing: 'easeOutExpo'
+            });
+
+            const profileMenuButton = document.getElementById('profile-menu-button');
+            const profileMenu = document.getElementById('profile-menu');
+
+            profileMenuButton.addEventListener('click', () => {
+                if (profileMenu.classList.contains('hidden')) {
+                    profileMenu.classList.remove('hidden');
+                    anime({
+                        targets: '#profile-menu',
+                        opacity: [0, 1],
+                        translateY: [-10, 0],
+                        duration: 300,
+                        easing: 'easeOutExpo'
+                    });
+                } else {
+                    anime({
+                        targets: '#profile-menu',
+                        opacity: [1, 0],
+                        translateY: [0, -10],
+                        duration: 300,
+                        easing: 'easeOutExpo',
+                        complete: () => {
+                            profileMenu.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+
+          
+particlesJS.load('particles-js', 'assets/particles.json', function() {
+            console.log('particles.js loaded - callback');
+        });
+
+
+            const profilePictureInput = document.getElementById('profile-picture');
+            const profilePicturePreview = document.getElementById('profile-picture-preview');
+            const cropperModal = document.getElementById('cropper-modal');
+            const cropperImage = document.getElementById('cropper-image');
+            const cropperConfirm = document.getElementById('cropper-confirm');
+            const cropperCancel = document.getElementById('cropper-cancel');
+            let cropper;
+
+            profilePictureInput.addEventListener('change', (event) => {
+                const files = event.target.files;
+                if (files && files.length > 0) {
+                    const file = files[0];
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        cropperImage.src = e.target.result;
+                        cropperModal.classList.remove('hidden');
+                        if (cropper) {
+                            cropper.destroy();
+                        }
+                        cropper = new Cropper(cropperImage, {
+                            aspectRatio: 1,
+                            viewMode: 1,
+                            autoCropArea: 1,
+                            crop(event) {
+                                // You can get the cropped area data here if needed
+                            }
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            cropperConfirm.addEventListener('click', () => {
+                const canvas = cropper.getCroppedCanvas({
+                    width: 128,
+                    height: 128
+                });
+                const croppedImage = canvas.toDataURL();  // Get base64 image data
+                profilePicturePreview.src = croppedImage;
+                cropperModal.classList.add('hidden');
+
+                // Send the cropped image to the backend via a POST request
+
+                updateProfilePicture(croppedImage);
+
+            });
+
+            // Send the cropped image to the backend
+            function updateProfilePicture(croppedImage) {
+                fetch('/updateProfilePicture', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ profile_picture: croppedImage }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Profile picture updated successfully!');
+                        } else {
+                            alert('Error updating profile picture');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error during profile picture update:', error);
+                        alert('An error occurred while updating the profile picture.');
+                    });
+            }
+
+            cropperCancel.addEventListener('click', () => {
+                cropperModal.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+
+</html>
