@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Vulpin3 | Bot Console</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .hover-effect:hover {
+      background-color: #f3f4f6;
+      transition: background-color 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 relative">
+  <!-- Background Particles -->
+  <div id="particles-js" class="absolute inset-0 z-0"></div>
+  
+  <!-- Main Container -->
+  <div class="min-h-screen flex flex-col relative z-10">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <div class="flex-shrink-0 flex items-center">
+              <!-- Optionally replace with your logo -->
+              <span class="ml-2 text-xl font-bold">Vulpin3</span>
+            </div>
+            <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+              <a class="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                href="/dashboard">
+                Dashboard
+              </a>
+              <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                href="/bots">
+                Create
+              </a>
+              <a class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                href="/">
+                Console
+              </a>
+            </div>
+          </div>
+          <div class="hidden sm:ml-6 sm:flex sm:items-center">
+            <div class="relative">
+              <button aria-expanded="false" aria-haspopup="true"
+                class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                id="user-menu-button">
+                <img alt="Profile picture" class="h-8 w-8 rounded-full" id="UserImage"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjqh2qW9yiZ56kxvX64S3kiji0QwFMjXM_tg&s" />
+              </button>
+            </div>
+            <div class="ml-3 relative">
+              <div>
+                <button aria-expanded="false" aria-haspopup="true"
+                  class="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  id="profile-menu-button">
+                  <span class="sr-only">Open user menu</span>
+                  <i class="ri-user-line text-xl"></i>
+                </button>
+              </div>
+              <div aria-labelledby="profile-menu-button" aria-orientation="vertical"
+                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+                id="profile-menu" role="menu" tabindex="-1">
+                <a class="block px-4 py-2 text-sm text-gray-700 hover-effect" href="/my-profile" role="menuitem">Your Profile</a>
+                
+                <a class="block px-4 py-2 text-sm text-gray-700 hover-effect" href="/logout" role="menuitem">Sign out</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Main Content: Bot Management Table -->
+    <main class="flex-grow">
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+          <h1 class="text-3xl font-bold text-gray-800 mb-6">Bot Management</h1>
+          
+          <!-- Bot List Table -->
+          <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200" id="bot-table">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Bot Name
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Current Answer
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Status
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Last Updated
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Pin
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200" id="bot-table-body">
+                <!-- Bot rows will be inserted here dynamically -->
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="4">
+                    Loading bots...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-white shadow-md">
+      <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center">
+          <p class="text-sm text-gray-500">
+            © 2025 Vulpin3 Dashboard. All rights reserved.
+          </p>
+          <div class="flex space-x-4">
+            <a class="text-gray-400 hover:text-gray-500" href="#">
+              <i class="ri-facebook-circle-line text-xl"></i>
+            </a>
+            <a class="text-gray-400 hover:text-gray-500" href="#">
+              <i class="ri-twitter-line text-xl"></i>
+            </a>
+            <a class="text-gray-400 hover:text-gray-500" href="#">
+              <i class="ri-instagram-line text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  
+  <script>
+    // Wait for DOM content to be fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animate header (optional, sassy and smooth)
+      anime({
+        targets: 'h1',
+        translateY: [-50, 0],
+        opacity: [0, 1],
+        duration: 1000,
+        easing: 'easeOutExpo'
+      });
+      
+      // Toggle profile menu
+      const profileMenuButton = document.getElementById('profile-menu-button');
+      const profileMenu = document.getElementById('profile-menu');
+      profileMenuButton.addEventListener('click', () => {
+        if (profileMenu.classList.contains('hidden')) {
+          profileMenu.classList.remove('hidden');
+          anime({
+            targets: '#profile-menu',
+            opacity: [0, 1],
+            translateY: [-10, 0],
+            duration: 300,
+            easing: 'easeOutExpo'
+          });
+        } else {
+          anime({
+            targets: '#profile-menu',
+            opacity: [1, 0],
+            translateY: [0, -10],
+            duration: 300,
+            easing: 'easeOutExpo',
+            complete: () => {
+              profileMenu.classList.add('hidden');
+            }
+          });
+        }
+      });
+      
+      // Load particles for a bit of visual flair
+      particlesJS.load('particles-js', 'assets/particles.json', function() {
+        console.log('particles.js loaded - callback');
+      });
+      
+     // Function to fetch bot data and update the table
+function fetchBotData() {
+  fetch('/getbots')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      const tbody = document.getElementById('bot-table-body');
+      tbody.innerHTML = ''; // Clear existing rows
+
+      if (data.bots && data.bots.length > 0) {
+        data.bots.forEach(bot => {
+          const tr = document.createElement('tr');
+          tr.classList.add('hover:bg-gray-50');
+
+          // Bot Name cell
+          const nameTd = document.createElement('td');
+          nameTd.className = "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900";
+          nameTd.textContent = bot.name;
+          tr.appendChild(nameTd);
+
+          // Current Answer cell
+          const answerTd = document.createElement('td');
+          answerTd.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-500";
+          answerTd.textContent = bot.current_answer || 'N/A';
+          tr.appendChild(answerTd);
+
+          // Status cell
+          const statusTd = document.createElement('td');
+          statusTd.className = "px-6 py-4 whitespace-nowrap text-sm";
+          if (bot.is_correct === true) {
+            statusTd.innerHTML = '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Correct</span>';
+          } else if (bot.is_correct === false) {
+            statusTd.innerHTML = '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Incorrect</span>';
+          } else {
+            statusTd.innerHTML = '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Pending</span>';
+          }
+          tr.appendChild(statusTd);
+
+          // Last Updated cell
+          const updatedTd = document.createElement('td');
+          updatedTd.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-500";
+          const lastUpdated = bot.last_updated ? new Date(bot.last_updated).toLocaleTimeString() : 'N/A';
+          updatedTd.textContent = lastUpdated;
+          tr.appendChild(updatedTd);
+
+          // Game Pin cell
+          const pinTd = document.createElement('td');
+          pinTd.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-500";
+          pinTd.textContent = bot.gamepin || 'N/A';  // Show the gamepin or 'N/A' if it's not available
+          tr.appendChild(pinTd);
+
+          tbody.appendChild(tr);
+        });
+      } else {
+        // If no bots are returned, display a friendly message.
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.className = "px-6 py-4 whitespace-nowrap text-sm text-gray-500";
+        td.colSpan = 5;  // Adjust colspan since we've added another column for the gamepin
+        td.textContent = "No bots found. Sit back and relax...";
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching bots:', error);
+      const tbody = document.getElementById('bot-table-body');
+      tbody.innerHTML = `<tr><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="5">Failed to load bots.</td></tr>`;
+    });
+}
+
+      
+      // Fetch bots on initial load
+      fetchBotData();
+      
+      // Optionally, poll every 5 seconds to keep the dashboard updated
+      setInterval(fetchBotData, 1000);
+      
+      // Fetch user profile picture (as in your original code)
+      fetch('/getuser')
+        .then(response => response.json())
+        .then(data => {
+          if (data && data.profile_picture) {
+            const imgElement = document.getElementById('UserImage');
+            const formattedProfilePicUrl = data.profile_picture.startsWith('data:image') ?
+              data.profile_picture :
+              `data:image/png;base64,${data.profile_picture}`;
+            imgElement.src = formattedProfilePicUrl;
+            imgElement.alt = "Profile Picture";
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+        });
+    });
+  </script>
+</body>
+</html>
